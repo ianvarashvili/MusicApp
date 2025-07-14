@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".FirstFragment">
+
+
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+      <ImageView
+          android:id="@+id/player"
+          android:layout_width="128dp"
+          android:layout_height="115dp"
+          android:src="@drawable/player"
+          app:layout_constraintBottom_toBottomOf="@+id/textView"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <ImageView
+          android:id="@+id/beko"
+          android:layout_width="288dp"
+          android:layout_height="164dp"
+          android:src="@drawable/sheep"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+      <TextView
+          android:id="@+id/textView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="@font/cherry_cream_soda"
+          android:shadowColor="#FC49009C"
+          android:shadowDx="0"
+          android:shadowDy="0"
+          android:shadowRadius="10"
+          android:width="300dp"
+          android:text="- &quot;I wonder, what does your mind sound like?&quot;"
+          android:textAlignment="center"
+          android:textColor="#D2E8EAF6"
+          android:textSize="30sp"
+          android:textStyle="italic"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
