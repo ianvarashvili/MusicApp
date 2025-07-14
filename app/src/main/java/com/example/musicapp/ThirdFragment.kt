@@ -69,6 +69,7 @@ class ThirdFragment : Fragment(R.layout.fragment_third) {
 
 
         }
+
         binding.btnNext.setOnClickListener {
 
             Log.d("ThirdFragment", "NEXT CLICKED")
