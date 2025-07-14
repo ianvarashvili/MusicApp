@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         var currentSong: Song? = null
         var currentIndex: Int = -1
         var currentPlaylist: List<Song> = emptyList() // Add this
-        fun playSong(song: Song) {
+        fun playSong(song: Song, index: Int) {
             mediaPlayer?.release()
             mediaPlayer = MediaPlayer().apply {
                 setDataSource(song.url)
@@ -29,8 +29,9 @@ class MainActivity : AppCompatActivity() {
                 start()
             }
             currentSong = song
-            currentIndex = currentPlaylist?.indexOf(song) ?: 0
+            currentIndex = index
         }
+
     }
 
 }

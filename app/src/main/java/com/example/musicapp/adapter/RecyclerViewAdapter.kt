@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 class RecyclerViewAdapter(
     private val itemList: List<Song>,
     private val onPlayClick: (Song) -> Unit,
-//                          private val onStopClick: (Song) -> Unit
+
 
 ) : RecyclerView.Adapter<RecyclerViewAdapter.Holder>() {
 
@@ -45,9 +45,7 @@ class RecyclerViewAdapter(
                 playbtn.startAnimation(scaleAnimation)
                 onPlayClick(item)
             }
-//            stopbtn.setOnClickListener {
-//                onStopClick(item)
-//            }
+
         }
     }
 

@@ -31,7 +31,7 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
         adapter = RecyclerViewAdapter(
             songs,
             onPlayClick = { song -> playSong(song) },
-//            onStopClick = { stopSong() }
+
         )
 
 
@@ -62,19 +62,17 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
                 Log.e("Firestore", "Error loading songs", e)
             }
     }
-//    private fun stopSong() {
-//        MainActivity.MusicPlayerManager.mediaPlayer?.stop()
-//        MainActivity.MusicPlayerManager.mediaPlayer?.release()
-//        MainActivity.MusicPlayerManager.mediaPlayer = null
-//    }
+
 
     private fun playSong(song: Song) {
-        MainActivity.MusicPlayerManager.playSong(song)
+        MainActivity.MusicPlayerManager.currentPlaylist = songs
+        val index = songs.indexOf(song)
+        MainActivity.MusicPlayerManager.currentIndex = index
+
+        MainActivity.MusicPlayerManager.playSong(song, index)
 
         val mainFragment = parentFragment as? MainFragment ?: return
         mainFragment.openPlayerFromOutside(song)
-
-        MainActivity.MusicPlayerManager.currentPlaylist = songs
     }
 
 
