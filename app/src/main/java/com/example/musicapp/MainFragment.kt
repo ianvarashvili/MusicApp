@@ -8,58 +8,45 @@ import android.view.ViewGroup
 import com.example.musicapp.databinding.FragmentMainBinding
 import com.example.musicapp.models.Song
 
-
 class MainFragment : Fragment() {
 
-    lateinit var binding : FragmentMainBinding
+    lateinit var binding: FragmentMainBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(inflater,container, false)
+        binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
-
-
-    }
-
-
-
-    private fun loadFragment(fragment: Fragment) {
-        val current = parentFragmentManager.findFragmentById(R.id.placeHolder)
-        if (current != null && current::class == fragment::class) return  // Already showing
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.placeHolder, fragment)
-            .addToBackStack(null)
-            .commit()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Load first fragment only ONCE when app starts
+        // load FirstFragment first
         if (parentFragmentManager.findFragmentById(R.id.placeHolder) == null) {
             loadFragment(FirstFragment.newInstance())
-            bottomNavMenu.selectedItemId = R.id.home
+            bottomNavMenu.selectedItemId = R.id.home //home icon
         }
 
-        // Keep BottomNavigationView in sync with current visible fragment
+        //backstack
         parentFragmentManager.addOnBackStackChangedListener {
-            val currentFragment = parentFragmentManager.findFragmentById(R.id.placeHolder)
+            val currentFragment = parentFragmentManager.findFragmentById(R.id.placeHolder)//current fragment in placeholder
 
-            val selectedId = when (currentFragment) {
+            val selectedId = when (currentFragment) { //selecting icons
                 is FirstFragment -> R.id.home
                 is SecondFragment -> R.id.playlist
                 is ThirdFragment -> R.id.player
                 else -> R.id.home
             }
 
+            // if mismatch then update
             if (bottomNavMenu.selectedItemId != selectedId) {
                 bottomNavMenu.selectedItemId = selectedId
             }
         }
 
-        // Handle tab clicks
+
         bottomNavMenu.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
@@ -79,20 +66,33 @@ class MainFragment : Fragment() {
         }
     }
 
-    fun openPlayerFromOutside(song: Song) {
-        val bundle = Bundle().apply {
-            putParcelable("song", song)
-        }
 
-        val fragment = ThirdFragment()
-        fragment.arguments = bundle
+    private fun loadFragment(fragment: Fragment) {
+        val current = parentFragmentManager.findFragmentById(R.id.placeHolder)//current fragment
 
-        loadFragment(fragment)
+        // skip if its already showing
+        if (current != null && current::class == fragment::class) return //vadarebt types
 
-
-        binding.bottomNavMenu.menu.findItem(R.id.player).isChecked = true
+        //replace current
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.placeHolder, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
+
+    fun openPlayerFromOutside(song: Song) {
+        //bundle with song data
+        val bundle = Bundle().apply {
+            putParcelable("song", song) // pass song to ThirdFragment
+        }
+        val fragment = ThirdFragment()
+        fragment.arguments = bundle
+        // open player
+        loadFragment(fragment)
+        //update botnav items
+        binding.bottomNavMenu.menu.findItem(R.id.player).isChecked = true
+    }
 
     companion object {
         @JvmStatic
